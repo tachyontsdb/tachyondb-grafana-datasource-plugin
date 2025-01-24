@@ -7,20 +7,20 @@ export interface MyQuery extends DataQuery {
 
 export const DEFAULT_QUERY: Partial<MyQuery> = {};
 
-export interface DataPoint {
-  timestamp: number;
-  value: number;
-}
-
 export interface DataSourceResponse {
-  datapoints: DataPoint[];
+  value_type: "UInteger64" | "Integer64" | "Float64";
+  timestamps: number[];
+  values_u64: number[];
+  values_i64: number[];
+  values_f64: number[];
 }
 
 /**
  * These are options configured for each DataSource instance
  */
 export interface MyDataSourceOptions extends DataSourceJsonData {
-  path: string;
+  url: string;
+  databaseDirectory: string;
 }
 
 /**

@@ -9,17 +9,26 @@ export function ConfigEditor(props: Props) {
   const { onOptionsChange, options } = props;
   const { jsonData, secureJsonFields, secureJsonData } = options;
 
-  const onPathChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const onURLChange = (event: ChangeEvent<HTMLInputElement>) => {
     onOptionsChange({
       ...options,
       jsonData: {
         ...jsonData,
-        path: event.target.value,
+        url: event.target.value,
       },
     });
   };
 
-  // Secure field (only sent to the backend)
+  const onDatabaseDirectoryChange = (event: ChangeEvent<HTMLInputElement>) => {
+    onOptionsChange({
+      ...options,
+      jsonData: {
+        ...jsonData,
+        databaseDirectory: event.target.value,
+      },
+    });
+  };
+
   const onAPIKeyChange = (event: ChangeEvent<HTMLInputElement>) => {
     onOptionsChange({
       ...options,
@@ -45,12 +54,21 @@ export function ConfigEditor(props: Props) {
 
   return (
     <>
-      <InlineField label="Path" labelWidth={14} interactive tooltip={"Json field returned to frontend"}>
+      <InlineField label="URL" labelWidth={14} interactive tooltip={"Json field returned to frontend"}>
         <Input
-          id="config-editor-path"
-          onChange={onPathChange}
-          value={jsonData.path}
-          placeholder="Enter the path, e.g. /api/v1"
+          id="config-editor-url"
+          onChange={onURLChange}
+          value={jsonData.url}
+          placeholder="Enter the URL"
+          width={40}
+        />
+      </InlineField>
+      <InlineField label="Database Directory" labelWidth={14} interactive tooltip={"Json field returned to frontend"}>
+        <Input
+          id="config-editor-database-directory"
+          onChange={onDatabaseDirectoryChange}
+          value={jsonData.databaseDirectory}
+          placeholder="Enter the Database Directory"
           width={40}
         />
       </InlineField>
@@ -60,7 +78,7 @@ export function ConfigEditor(props: Props) {
           id="config-editor-api-key"
           isConfigured={secureJsonFields.apiKey}
           value={secureJsonData?.apiKey}
-          placeholder="Enter your API key"
+          placeholder="Enter your API Key"
           width={40}
           onReset={onResetAPIKey}
           onChange={onAPIKeyChange}

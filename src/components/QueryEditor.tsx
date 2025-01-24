@@ -19,9 +19,9 @@ export function QueryEditor({ query, onChange, onRunQuery }: Props) {
         <Input
           id="query-editor-query-text"
           onChange={onQueryTextChange}
-          value={queryText || ""}
+          value={queryText}
           required
-          placeholder="Enter a query"
+          placeholder="Enter a Query"
         />
       </InlineField>
     </Stack>

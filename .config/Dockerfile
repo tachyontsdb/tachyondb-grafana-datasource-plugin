@@ -1,5 +1,5 @@
 ARG grafana_version=latest
-ARG grafana_image=grafana-enterprise
+ARG grafana_image=grafana
 
 FROM grafana/${grafana_image}:${grafana_version}
 
@@ -19,7 +19,7 @@ ENV GF_AUTH_BASIC_ENABLED "false"
 ENV GF_DEFAULT_APP_MODE "development"
 
 
-LABEL maintainer="Grafana Labs <hello@grafana.com>"
+LABEL maintainer=""
 
 ENV GF_PATHS_HOME="/usr/share/grafana"
 WORKDIR $GF_PATHS_HOME
