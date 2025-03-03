@@ -10,9 +10,9 @@ export const DEFAULT_QUERY: Partial<MyQuery> = {};
 export interface DataSourceResponse {
   value_type: "UInteger64" | "Integer64" | "Float64";
   timestamps: number[];
-  values_u64: number[];
-  values_i64: number[];
-  values_f64: number[];
+  values_u64?: number[] | null;
+  values_i64?: number[] | null;
+  values_f64?: number[] | null;
 }
 
 /**

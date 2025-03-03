@@ -87,11 +87,12 @@ export class DataSource extends DataSourceApi<MyQuery, MyDataSourceOptions> {
           {
             name: "Value",
             values:
-              result.value_type === "UInteger64"
+              (result.value_type === "UInteger64"
                 ? result.values_u64
                 : result.value_type === "Integer64"
                   ? result.values_i64
-                  : result.values_f64,
+                  : result.values_f64)
+              ?? [],
             type: FieldType.number,
           },
         ],
