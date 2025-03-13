@@ -69,8 +69,8 @@ export class DataSource extends DataSourceApi<MyQuery, MyDataSourceOptions> {
   }
 
   public async query(options: DataQueryRequest<MyQuery>): Promise<DataQueryResponse> {
-    const start = 0; // options.range.from.valueOf();
-    const end = 10000000000; // options.range.to.valueOf();
+    const start = options.range.from.valueOf();
+    const end = options.range.to.valueOf();
 
     const results = options.targets.map(async (target) => {
       const result = await getBackendSrv().post<DataSourceResponse>(`${this.url}/query`, {
@@ -85,7 +85,7 @@ export class DataSource extends DataSourceApi<MyQuery, MyDataSourceOptions> {
         fields: [
           { name: "Timestamp", values: result.timestamps, type: FieldType.time },
           {
-            name: "Value",
+            name: target.queryText,
             values:
               (result.value_type === "UInteger64"
                 ? result.values_u64
