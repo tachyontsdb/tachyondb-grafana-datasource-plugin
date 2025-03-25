@@ -11,7 +11,7 @@ import {
 import { getBackendSrv, isFetchError } from "@grafana/runtime";
 import { lastValueFrom } from "rxjs";
 
-import { DataSourceResponse, DEFAULT_QUERY, MyDataSourceOptions, MyQuery } from "./types";
+import { DataSourceResponse, DEFAULT_QUERY, MyDataSourceOptions, MyQuery, StreamResponse } from "./types";
 
 export class DataSource extends DataSourceApi<MyQuery, MyDataSourceOptions> {
   url: string;
@@ -100,5 +100,23 @@ export class DataSource extends DataSourceApi<MyQuery, MyDataSourceOptions> {
     });
 
     return { data: await Promise.all(results) };
+  }
+
+  /**
+   * Fetches available streams and their matchers from the backend
+   */
+  public async getStreams(): Promise<StreamResponse> {
+    if (!this.url || !this.databaseDirectory) {
+      return { streams: [] };
+    }
+    try {
+      const response = await getBackendSrv().post<StreamResponse>(`${this.url}/get_streams`, {
+        path: this.databaseDirectory,
+      });
+      return response;
+    } catch (error) {
+      console.error("Error fetching streams:", error);
+      return { streams: [] };
+    }
   }
 }

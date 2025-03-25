@@ -29,3 +29,27 @@ export interface MyDataSourceOptions extends DataSourceJsonData {
 export interface MySecureJsonData {
   apiKey?: string;
 }
+
+/**
+ * Interface for stream matcher data
+ */
+export interface StreamMatcher {
+  label: string;
+  value: string;
+}
+
+/**
+ * Interface for stream data
+ */
+export interface Stream {
+  name: string;
+  value_type: string;
+  matchers: StreamMatcher[];
+}
+
+/**
+ * Response from the get_streams endpoint
+ */
+export interface StreamResponse {
+  streams: Stream[];
+}
