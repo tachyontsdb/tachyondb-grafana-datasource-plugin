@@ -43,13 +43,10 @@ export interface StreamMatcher {
  */
 export interface Stream {
   name: string;
-  value_type: string;
+  value_type: "UInteger64" | "Integer64" | "Float64";
   matchers: StreamMatcher[];
 }
 
-/**
- * Response from the get_streams endpoint
- */
 export interface StreamResponse {
   streams: Stream[];
 }

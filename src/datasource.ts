@@ -109,6 +109,7 @@ export class DataSource extends DataSourceApi<MyQuery, MyDataSourceOptions> {
     if (!this.url || !this.databaseDirectory) {
       return { streams: [] };
     }
+
     try {
       const response = await getBackendSrv().post<StreamResponse>(`${this.url}/get_streams`, {
         path: this.databaseDirectory,
